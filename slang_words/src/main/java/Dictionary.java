@@ -19,7 +19,10 @@ import java.util.logging.Logger;
  * @author binh3920
  */
 public class Dictionary {
-    LinkedHashMap<String, List<String>> dictionary = new LinkedHashMap<>();
+    private LinkedHashMap<String, ArrayList<String>> dictionary = new LinkedHashMap<>();
+    private LinkedHashMap<String, ArrayList<String>> revDict = new LinkedHashMap<>();
+    private ArrayList<String> history = new ArrayList<String>();
+    
     public Dictionary (String file_path) {
         try {
             FileInputStream fin = new FileInputStream(file_path);
@@ -27,10 +30,11 @@ public class Dictionary {
             
             while(reader.ready()) {
                 String line = reader.readLine();
-                String slang = getSlang(line);
-                List<String> words = new ArrayList<String>();
+                String slang = getSlang(line).toLowerCase();
+                ArrayList<String> words = new ArrayList<String>();
                 words = getWords(line);
                 dictionary.put(slang, words);
+                reverseDictionary(slang, words);
             }
         } catch (IOException ex) {
             Logger.getLogger(SlangWords.class.getName()).log(Level.SEVERE, null, ex);
@@ -45,10 +49,10 @@ public class Dictionary {
             return "";
         }
     }
-    private List<String> getWords(String line) {
+    private ArrayList<String> getWords(String line) {
         int pos = line.indexOf("`");
-        String words = line.substring(pos+1);
-        List<String> listWords = new ArrayList<String>();
+        String words = line.substring(pos+1).toLowerCase();
+        ArrayList<String> listWords = new ArrayList<String>();
         while(true) {
             pos = words.indexOf("|");
             if (pos == -1) {
@@ -60,10 +64,41 @@ public class Dictionary {
             }
         }
     }
+    private void reverseDictionary(String slang, List<String> words) {
+        words.forEach(temp -> {
+            if (revDict.containsKey(temp)) {
+                List<String> tempList = revDict.get(temp);
+                if (!tempList.contains(slang)) {
+                    tempList.add(slang);
+                }
+            } else {
+                ArrayList<String> listWords = new ArrayList<>();
+                listWords.add(slang);
+                revDict.put(temp, listWords);
+            }
+        });
+    }
     public List<String> getValue(String key) {
+        history.add(key);
         return dictionary.get(key);
     }
-    public String getKey(List<String> value) {
-        return dictionary.getKey(value);
+    public List<String> getKey(String value) {
+        history.add(value);
+        return revDict.get(value);
+    }
+    public List<String> getKeyByDef(String value) {
+        List<String> listVal = new ArrayList<>();
+        for (String key : revDict.keySet()) {
+            if (key.contains(value)) {
+                System.out.println(key);
+                for (String val : revDict.get(key)) {
+                    listVal.add(val);
+                }
+            }
+        }
+        return listVal;
+    }
+    public ArrayList<String> getHistory() {
+        return history;
     }
 }

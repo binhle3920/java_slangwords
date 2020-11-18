@@ -15,8 +15,8 @@ import java.util.List;
 public class SlangWords {
     public static void main(String args[]) {
         Dictionary myDict = new Dictionary("../slang.txt");
-        List<String> myVal = myDict.getValue("KOTOR");
-        System.out.println(myVal);
+        //System.out.println(myDict.getKey("money"));
+        System.out.println(myDict.getKeyByDef("money"));
     }
   
 }
