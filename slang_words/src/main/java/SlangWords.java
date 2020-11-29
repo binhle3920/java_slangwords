@@ -9,14 +9,20 @@
  * @author binh3920
  */
 
-import java.io.*;
-import java.util.List;
-        
 public class SlangWords {
     public static void main(String args[]) {
-        Dictionary myDict = new Dictionary("../slang.txt");
-        //System.out.println(myDict.getKey("money"));
-        System.out.println(myDict.getKeyByDef("money"));
+        Dictionary myDict = new Dictionary("../data.txt");
+        JFrame mainFrame = new JFrame(myDict);
+        mainFrame.show();
+        
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            public void run() {
+                myDict.saveDictionary("../data.txt");
+                System.out.println("Program exitted.");
+            }
+        }));
+        
     }
+    
   
 }
