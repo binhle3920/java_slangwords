@@ -5,13 +5,10 @@
  */
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -26,7 +23,6 @@ import java.util.logging.Logger;
 public class Dictionary {
     private LinkedHashMap<String, ArrayList<String>> dictionary = new LinkedHashMap<>();
     private LinkedHashMap<String, ArrayList<String>> revDict = new LinkedHashMap<>();
-    private ArrayList<String> history = new ArrayList<String>();
     
     public Dictionary (String file_path) {
         readFile(file_path);
@@ -124,11 +120,6 @@ public class Dictionary {
             }
         }
         return listVal;
-    }
-    
-    //Get search history
-    public ArrayList<String> getHistory() {
-        return history;
     }
     
     //Add slang to dictionary
