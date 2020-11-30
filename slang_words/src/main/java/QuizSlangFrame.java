@@ -132,8 +132,6 @@ public class QuizSlangFrame extends javax.swing.JFrame {
 
     private void quizButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quizButtonActionPerformed
         int type = Integer.parseInt(buttonGroup1.getSelection().getActionCommand());
-        System.out.println(type);
-        System.out.println(this.right);
         if (type - 1 == this.right) {
             JOptionPane.showMessageDialog(null, "Your answer is correct!");
             buttonGroup1.clearSelection();
