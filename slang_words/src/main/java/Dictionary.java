@@ -45,6 +45,7 @@ public class Dictionary {
             Logger.getLogger(SlangWords.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     private String getSlang(String line) {
         int pos = line.indexOf("`");
         if (pos != -1) {
@@ -69,6 +70,7 @@ public class Dictionary {
             }
         }
     }
+    
     private void reverseDictionary(String slang, List<String> words) {
         words.forEach(temp -> {
             if (revDict.containsKey(temp)) {
@@ -83,6 +85,7 @@ public class Dictionary {
             }
         });
     }
+    
     private void removeKeyInReverseDict(String slang, String val) {
         ArrayList<String> listVal = revDict.get(val);
         if (listVal.contains(slang)) {
@@ -101,6 +104,7 @@ public class Dictionary {
         }
         return false;
     }
+    
     //Find slang or definition
     public List<String> getValue(String key) {
         return dictionary.get(key);
@@ -112,9 +116,9 @@ public class Dictionary {
         List<String> listVal = new ArrayList<>();
         for (String key : revDict.keySet()) {
             if (key.contains(value)) {
-                for (String val : revDict.get(key)) {
+                revDict.get(key).forEach(val -> {
                     listVal.add(val);
-                }
+                });
             }
         }
         return listVal;
@@ -130,6 +134,7 @@ public class Dictionary {
         });
         reverseDictionary(slang, definition);
     }
+    
     public void addSlangOverwrite(String slang, ArrayList<String> definition) {
         ArrayList<String> listVal = dictionary.get(slang);
         listVal.forEach(val -> {
@@ -138,6 +143,7 @@ public class Dictionary {
         dictionary.replace(slang, definition);
         reverseDictionary(slang, definition);
     }
+    
     public void addSlang(String slang, ArrayList<String> definition) {
         dictionary.put(slang, definition);
         reverseDictionary(slang, definition);
@@ -160,6 +166,7 @@ public class Dictionary {
         }
         return true;
     }
+    
     public boolean removeDef(String slang, String def) {
         if (!dictionary.containsKey(slang)) {
             return false;
