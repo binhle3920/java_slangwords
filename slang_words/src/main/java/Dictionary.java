@@ -103,11 +103,9 @@ public class Dictionary {
     }
     //Find slang or definition
     public List<String> getValue(String key) {
-        history.add(key);
         return dictionary.get(key);
     }
     public List<String> getKey(String value) {
-        history.add(value);
         return revDict.get(value);
     }
     public List<String> getKeyByDef(String value) {
