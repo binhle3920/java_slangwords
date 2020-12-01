@@ -1,3 +1,5 @@
+package mypackage;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -216,7 +218,7 @@ public class Dictionary {
     //Reset
     public boolean resetDictionary() {
         dictionary.clear();
-        readFile("../slang.txt");
+        readFile("./slang.txt");
         return true;
     }
     
